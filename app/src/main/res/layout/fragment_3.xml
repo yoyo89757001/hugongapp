@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.fragmengmain.Fragment3">
+
+
+    <RelativeLayout
+        android:id="@+id/top"
+        android:background="#FF59B683"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:text="颐年智慧病房"
+            android:id="@+id/mytitle"
+            android:textStyle="bold"
+            android:layout_marginLeft="16dp"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:id="@+id/topbutton"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_vertical|end"
+            android:orientation="vertical"
+            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:id="@+id/xingqi"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp"
+                    android:text="马冬梅"
+                    android:layout_marginEnd="10dp"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:id="@+id/shijian"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    android:text="马冬梅"
+                    android:layout_marginEnd="16dp"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/riqi"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:layout_marginTop="6dp"
+                android:text="马冬梅"
+                android:layout_marginEnd="16dp"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        app:layout_constraintTop_toBottomOf="@+id/top"
+        android:orientation="vertical"
+        android:id="@+id/refreshLayout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <com.scwang.smart.refresh.header.ClassicsHeader
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:background="#FFF5F5F5"
+    app:layout_constraintTop_toBottomOf="@+id/refreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/gbg"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:id="@+id/l1"
+            android:layout_height="match_parent">
+            <TextView
+                android:text="我的任务"
+                android:textSize="16sp"
+                android:textColor="#FF59B683"
+                android:id="@+id/renwu"
+                android:padding="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <View
+                android:id="@+id/v11"
+                android:background="#FF59B683"
+                android:layout_width="50dp"
+                android:layout_height="2dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:id="@+id/l2"
+            android:layout_height="match_parent">
+            <TextView
+                android:text="我的长者"
+                android:textSize="14sp"
+                android:padding="16dp"
+                android:textColor="#FFB6B6B6"
+                android:id="@+id/zhangzhe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <View
+                android:visibility="gone"
+                android:id="@+id/v22"
+                android:background="#FF59B683"
+                android:layout_width="40dp"
+                android:layout_height="2dp"/>
+
+        </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewpage"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gbg"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
+
+
+   </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F6F6F6"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.fragmengmain.Fragment1">
+
+
+
+    <RelativeLayout
+        android:id="@+id/top"
+        android:background="#FF59B683"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:text="颐年智慧病房"
+            android:id="@+id/mytitle"
+            android:textStyle="bold"
+            android:layout_marginLeft="16dp"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:id="@+id/topbutton"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_vertical|end"
+            android:orientation="vertical"
+            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:id="@+id/xingqi"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp"
+                    android:text="马冬梅"
+                    android:layout_marginEnd="10dp"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:id="@+id/shijian"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    android:text="马冬梅"
+                    android:layout_marginEnd="16dp"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/riqi"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:layout_marginTop="6dp"
+                android:text="马冬梅"
+                android:layout_marginEnd="16dp"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+ <androidx.constraintlayout.widget.ConstraintLayout
+     android:gravity="center_vertical"
+     android:id="@+id/jjk"
+     android:visibility="gone"
+     android:background="#FEFCEC"
+     android:orientation="horizontal"
+     app:layout_constraintLeft_toLeftOf="parent"
+     app:layout_constraintTop_toBottomOf="@+id/top"
+     android:layout_width="match_parent"
+     android:layout_height="36dp">
+
+     <ImageView
+         app:layout_constraintLeft_toLeftOf="parent"
+         app:layout_constraintTop_toTopOf="parent"
+         app:layout_constraintBottom_toBottomOf="parent"
+         android:layout_marginLeft="12dp"
+         android:src="@drawable/laba"
+         android:id="@+id/ddf"
+         android:layout_width="16dp"
+         android:layout_height="16dp"/>
+
+     <ImageView
+         app:layout_constraintTop_toTopOf="parent"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintRight_toRightOf="parent"
+         android:layout_marginRight="12dp"
+         android:id="@+id/hhjf"
+         android:src="@drawable/youju"
+         android:layout_width="16dp"
+         android:layout_height="16dp"/>
+
+
+
+     <com.gongwen.marqueen.SimpleMarqueeView
+         android:layout_marginRight="10dp"
+         android:layout_marginLeft="10dp"
+         app:layout_constraintTop_toTopOf="parent"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintLeft_toRightOf="@+id/ddf"
+         app:layout_constraintRight_toLeftOf="@+id/hhjf"
+         android:id="@+id/tv_marquee"
+         android:layout_width="0dp"
+         android:layout_height="36dp"
+         android:flipInterval="4000"
+         android:inAnimation="@anim/in_right"
+         android:outAnimation="@anim/out_left"
+         app:marqueeAnimDuration="3200"
+         app:smvTextColor="#F86E21"
+         app:smvTextEllipsize="end"
+         app:smvTextGravity="center_vertical"
+         app:smvTextSingleLine="true"
+         app:smvTextSize="14sp" />
+
+
+ </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <LinearLayout
+        app:layout_constraintTop_toBottomOf="@+id/jjk"
+        android:id="@+id/renwull"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.qmuiteam.qmui.layout.QMUIButton
+            android:layout_marginLeft="40dp"
+            android:textColor="#FFFFFF"
+            android:background="#59B683"
+            android:textSize="18sp"
+            android:id="@+id/l1"
+            android:text="上班签到"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"/>
+
+        <com.qmuiteam.qmui.layout.QMUIButton
+            android:layout_marginLeft="40dp"
+            android:textColor="#FFFFFF"
+            android:background="#59B683"
+            android:textSize="18sp"
+            android:id="@+id/l2"
+            android:text="服务签到"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"/>
+
+        <com.qmuiteam.qmui.layout.QMUIButton
+            android:layout_marginLeft="40dp"
+            android:textColor="#FFFFFF"
+            android:background="#59B683"
+            android:textSize="18sp"
+            android:id="@+id/l3"
+            android:text="下班交接"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_marginTop="30dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="#555555"
+        android:text="告警信息"
+        android:id="@+id/klkl"
+        android:layout_marginStart="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/renwull"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_marginTop="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/klkl"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
