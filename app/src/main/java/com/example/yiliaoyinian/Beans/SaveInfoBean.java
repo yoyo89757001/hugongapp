@@ -190,4 +190,30 @@ public class SaveInfoBean {//本地保存
     public void setSereveURL(String sereveURL) {
         this.sereveURL = sereveURL;
     }
+
+    @Override
+    public String toString() {
+        return "SaveInfoBean{" +
+                "id=" + id +
+                ", isLogin=" + isLogin +
+                ", sereveURL='" + sereveURL + '\'' +
+                ", nurseName='" + nurseName + '\'' +
+                ", headImg='" + headImg + '\'' +
+                ", phone='" + phone + '\'' +
+                ", nurseCode='" + nurseCode + '\'' +
+                ", token='" + token + '\'' +
+                ", registrationId='" + registrationId + '\'' +
+                ", patientCode='" + patientCode + '\'' +
+                ", patientId=" + patientId +
+                ", patientName='" + patientName + '\'' +
+                ", patientAge=" + patientAge +
+                ", url='" + url + '\'' +
+                ", ysToken='" + ysToken + '\'' +
+                ", appKey='" + appKey + '\'' +
+                ", appSecret='" + appSecret + '\'' +
+                ", did='" + did + '\'' +
+                ", pwd='" + pwd + '\'' +
+                ", showPB=" + showPB +
+                '}';
+    }
 }

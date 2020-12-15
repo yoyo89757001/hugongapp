@@ -17,14 +17,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.example.yiliaoyinian.Beans.ErrorBean;
-import com.example.yiliaoyinian.Beans.HuGongBean;
 import com.example.yiliaoyinian.Beans.PaiBanShowBean;
 import com.example.yiliaoyinian.Beans.RiLiBean;
 import com.example.yiliaoyinian.Beans.ZhiBanssBean;
@@ -90,6 +88,7 @@ public class ZhiBanActivity extends BaseActivity implements CalendarView.OnYearC
        //  @OnClick({R.id.left_im, R.id.right_im, R.id.jiahao, R.id.fanhui})
         findViewById(R.id.left_im).setOnClickListener(this);
         findViewById(R.id.right_im).setOnClickListener(this);
+        findViewById(R.id.jiahao).setOnClickListener(this);
         calendarView=findViewById(R.id.calendarView);
         riqi=findViewById(R.id.riqi);
         ll=findViewById(R.id.ll);
@@ -297,7 +296,7 @@ public class ZhiBanActivity extends BaseActivity implements CalendarView.OnYearC
         Request.Builder requestBuilder = new Request.Builder()
                 .header("token", MyApplication.myApplication.getToken())
                 .get()
-                .url(Consts.URL3 + "/api/nurseWorker/getNurseInfo");
+                .url(Consts.URL + "/api/nurseWorker/getNurseInfo");
         // step 3：创建 Call 对象
         Call call = MyApplication.okHttpClient.newCall(requestBuilder.build());
         //step 4: 开始异步请求

@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity implements EasyPermissions.
 
     Button btnLogin;
 
-    ImageView shezhi;
+    //ImageView shezhi;
     private QMUITipDialog qmuiTipDialog = null;
     private String resage = null;
     private PopHeadBlackAdapterLogin adapterLogin;
@@ -201,7 +201,8 @@ public class LoginActivity extends AppCompatActivity implements EasyPermissions.
 //                return;
 //            }
 
-            Log.d("LoginActivity", JPushInterface.getRegistrationID(this) + "注册极光id");
+
+
             //登陆了
             if (MyApplication.myApplication.getToken() != null && !MyApplication.myApplication.getToken().equals("")) {
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
@@ -209,6 +210,7 @@ public class LoginActivity extends AppCompatActivity implements EasyPermissions.
             }
 
             JPushInterface.init(getApplicationContext());
+            Log.d("LoginActivity", JPushInterface.getRegistrationID(this) + "注册极光id");
 
         } else {
             // Do not have permissions, request them now
@@ -354,7 +356,7 @@ public class LoginActivity extends AppCompatActivity implements EasyPermissions.
                             saveInfoBean.setToken(logingBe.getResult().getToken());
                             saveInfoBean.setPhone(logingBe.getResult().getPhone());
                             saveInfoBean.setPwd(pwd);
-                            if (saveInfoBean.getRegistrationId() == null) {
+                            if (saveInfoBean.getRegistrationId() == null || saveInfoBean.getRegistrationId().equals("")) {
                                 if (JPushInterface.getRegistrationID(LoginActivity.this) != null) {
                                     saveInfoBean.setRegistrationId(JPushInterface.getRegistrationID(LoginActivity.this));
                                 } else if (resage != null) {

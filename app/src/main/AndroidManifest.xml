@@ -37,6 +37,11 @@
     <uses-feature android:name="android.hardware.Camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
+    <permission
+        android:name="com.ynims.zhihui.hugong.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />
+
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -137,11 +142,11 @@
                 <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
                 <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />
 
-                <category android:name="com.yinian.zhihui.yanglao" />
+                <category android:name="com.ynims.zhihui.hugong" />
             </intent-filter>
         </receiver>
 
-        <service android:name=".services.SendMsgService" android:process="com.eends.sgservice"/>
+
 
         <service
             android:name=".utils.wifiutils.NetworkService"

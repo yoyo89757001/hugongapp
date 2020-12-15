@@ -1,6 +1,7 @@
 package com.example.yiliaoyinian.ui;
 
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -44,14 +45,11 @@ import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
-import org.json.JSONException;
 import java.io.IOException;
 import java.util.ArrayList;
 
 import java.util.List;
 import java.util.Objects;
-
 import okhttp3.Call;
 import okhttp3.Callback;
 
@@ -156,10 +154,49 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
             }
         });
 
-
+        //Log.d("MainActivity", MyApplication.myApplication.getSaveInfoBeanBox().get(123456).getRegistrationId()+"极光ID");
+        updateNurseInfo(MyApplication.myApplication.getSaveInfoBeanBox().get(123456).getRegistrationId());
 
     }
 
+
+    private void updateNurseInfo(String idid) {
+        Log.d("MainActivity", idid+"极光ID");
+//        org.json.JSONObject data =new org.json.JSONObject();
+//        try {
+//            data.put("auroraId",idid);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+        Request builder = new  Request.Builder()
+                .addHeader("token", MyApplication.myApplication.getToken())
+                .addHeader("Content-Type", "application/json")
+                .get()
+                .url(Consts.URL3+"/api/nurseWorker/updateNurseInfo?auroraId="+idid).build();
+        // step 3：创建 Call 对象
+        Call call = MyApplication.okHttpClient.newCall(builder);
+        //step 4: 开始异步请求
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.d("AllConnects", "请求失败" + e.getMessage());
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Log.d("AllConnects", "请求成功" + call.request().toString());
+                //获得返回体
+                try {
+                    ResponseBody body = response.body();
+                    String ss = body.string().trim();
+                    Log.d("LoginActivity", ss+"更新极光id到后台");
+                } catch (Exception e) {
+                    Log.d("AllConnects", e.getMessage() + "异常");
+                }
+            }
+        });
+    }
+
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {
         switch (view.getId()) {

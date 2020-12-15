@@ -19,7 +19,7 @@
             android:text="颐年智慧病房"
             android:id="@+id/mytitle"
             android:textStyle="bold"
-            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -76,23 +76,15 @@
     </RelativeLayout>
 
 
-    <com.scwang.smart.refresh.layout.SmartRefreshLayout
-        app:layout_constraintTop_toBottomOf="@+id/top"
-        android:orientation="vertical"
-        android:id="@+id/refreshLayout"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_width="match_parent"
-        android:layout_height="0dp">
-        <com.scwang.smart.refresh.header.ClassicsHeader
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+
 
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:background="#FFF5F5F5"
-    app:layout_constraintTop_toBottomOf="@+id/refreshLayout"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/top"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="0dp">
 
     <LinearLayout
         android:id="@+id/gbg"
@@ -164,6 +156,6 @@
 
    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

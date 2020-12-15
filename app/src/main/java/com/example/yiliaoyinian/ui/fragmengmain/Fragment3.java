@@ -3,7 +3,6 @@ package com.example.yiliaoyinian.ui.fragmengmain;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.text.TextPaint;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,40 +12,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
-import com.example.yiliaoyinian.Beans.LuMIDevBean;
-import com.example.yiliaoyinian.Beans.MachineBean;
-import com.example.yiliaoyinian.Beans.WGInfoSave;
-import com.example.yiliaoyinian.Beans.WGInfoSave_;
-import com.example.yiliaoyinian.Beans.ZhanShiDataBean;
-import com.example.yiliaoyinian.MyApplication;
 import com.example.yiliaoyinian.R;
-import com.example.yiliaoyinian.utils.Consts;
 import com.example.yiliaoyinian.utils.DateUtils;
-import com.example.yiliaoyinian.utils.DialogManager;
-import com.example.yiliaoyinian.utils.GsonUtil;
-import com.example.yiliaoyinian.utils.ToastUtils;
 import com.example.yiliaoyinian.views.RenWuFragmentPagerAdapter;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.scwang.smart.refresh.layout.SmartRefreshLayout;
-import com.scwang.smart.refresh.layout.api.RefreshLayout;
-import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.jetbrains.annotations.NotNull;
-import org.json.JSONException;
-import org.json.JSONObject;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.MediaType;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 
 
@@ -62,12 +33,11 @@ public class Fragment3 extends Fragment implements ViewPager.OnPageChangeListene
     TextView zhangzhe;
     LinearLayout l2;
     ViewPager viewpage;
-    private List<ZhanShiDataBean.ResultBean.AbnormalListBean> taskBeanListzs = new ArrayList<>();
+//    private List<ZhanShiDataBean.ResultBean.AbnormalListBean> taskBeanListzs = new ArrayList<>();
     //几个代表页面的常量
     public static final int PAGE_ONE = 0;
     public static final int PAGE_TWO = 1;
-    private RenWuFragmentPagerAdapter renWuFragmentPagerAdapter=null;
-    private SmartRefreshLayout refreshLayout;
+    //private SmartRefreshLayout refreshLayout;
    // private Vector<MachineBean.ResultBean> taskBeanList = new Vector<>();
 
 
@@ -105,15 +75,15 @@ public class Fragment3 extends Fragment implements ViewPager.OnPageChangeListene
         view1=view.findViewById(R.id.v11);
         view2=view.findViewById(R.id.v22);
 
-        refreshLayout=view.findViewById(R.id.refreshLayout);
-        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(@NotNull RefreshLayout refreshlayout) {
-                link_getDeviceList();
-            }
-        });
+//        refreshLayout=view.findViewById(R.id.refreshLayout);
+//        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+//            @Override
+//            public void onRefresh(@NotNull RefreshLayout refreshlayout) {
+//                link_getDeviceList();
+//            }
+//        });
 
-        renWuFragmentPagerAdapter = new RenWuFragmentPagerAdapter(getChildFragmentManager());
+        RenWuFragmentPagerAdapter renWuFragmentPagerAdapter = new RenWuFragmentPagerAdapter(getChildFragmentManager());
         viewpage.setAdapter(renWuFragmentPagerAdapter);
         //设置当前页的ID
         viewpage.setCurrentItem(0);
@@ -124,13 +94,13 @@ public class Fragment3 extends Fragment implements ViewPager.OnPageChangeListene
         TextPaint tp3 = renwu.getPaint();
         tp3.setFakeBoldText(true);
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                SystemClock.sleep(1100);
-                link_getDeviceList();
-            }
-        }).start();
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                SystemClock.sleep(1100);
+//                link_getDeviceList();
+//            }
+//        }).start();
 
         shijian.setText(DateUtils.ti(System.currentTimeMillis()+""));
         riqi.setText(DateUtils.times(System.currentTimeMillis()));
@@ -141,164 +111,164 @@ public class Fragment3 extends Fragment implements ViewPager.OnPageChangeListene
 
 
 
-    private void link_getDeviceList() {
-        Request.Builder requestBuilder = new Request.Builder()
-                .header("token", MyApplication.myApplication.getToken())
-                .get()
-                .url(Consts.URL+"/api/deviceProduct/getDeviceList?deviceType=all");
-        // step 3：创建 Call 对象
-        Call call = MyApplication.okHttpClient.newCall(requestBuilder.build());
-        //step 4: 开始异步请求
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-
-                EventBus.getDefault().post(new ArrayList<MachineBean.ResultBean>());
-                link_getlumiList();
-                Log.d("AllConnects", "请求失败" + e.getMessage());
-//                if (getActivity()!=null){
-                        // ToastUtils.setMessage("网络请求失败",recyclerView);
+//    private void link_getDeviceList() {
+//        Request.Builder requestBuilder = new Request.Builder()
+//                .header("token", MyApplication.myApplication.getToken())
+//                .get()
+//                .url(Consts.URL+"/api/deviceProduct/getDeviceList?deviceType=all");
+//        // step 3：创建 Call 对象
+//        Call call = MyApplication.okHttpClient.newCall(requestBuilder.build());
+//        //step 4: 开始异步请求
+//        call.enqueue(new Callback() {
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//
+//                EventBus.getDefault().post(new ArrayList<MachineBean.ResultBean>());
+//                link_getlumiList();
+//                Log.d("AllConnects", "请求失败" + e.getMessage());
+////                if (getActivity()!=null){
+//                        // ToastUtils.setMessage("网络请求失败",recyclerView);
+////                }
+//            }
+//            @Override
+//            public void onResponse(Call call, Response response) throws IOException {
+//                Log.d("AllConnects", "请求成功" + call.request().toString());
+//                //获得返回体
+//                String ss=null;
+//                MachineBean logingBe = null;
+//                try {
+//                    ResponseBody body = response.body();
+//                    ss = body.string().trim();
+//                    Log.d("LoginActivity", "获取设备数据"+ss);
+//                    JsonObject jsonObject = GsonUtil.parse(ss).getAsJsonObject();
+//                    Gson gson = new Gson();
+//                    logingBe = gson.fromJson(jsonObject, MachineBean.class);
+//                    if (logingBe!=null && logingBe.isSuccess()){
+//                        if (logingBe.getCode()==1 && logingBe.getResult()!=null){
+//                                if (logingBe.getResult().size()>0){
+//                                    logingBe.getResult().get(0).setType(1001);
+//                                }
+//                        }else {
+//                            if (getActivity()!=null){
+//                                ToastUtils.setMessage(jsonObject.get("errorMsg").getAsString(),zhangzhe);
+//                            }
+//                        }
+//                    }else {
+//                        if (logingBe.getCode()==102){
+//                            //token过期
+//                            DialogManager.getAppManager().showToken();
+//                        }else {
+//                            if (getActivity()!=null){
+//                                ToastUtils.setMessage(jsonObject.get("errorMsg").getAsString(),zhangzhe);
+//                            }
+//                        }
+//                    }
+//                } catch (Exception e) {
+//                    Log.d("AllConnects", e.getMessage() + "异常");
+//                }finally {
+//                    if (logingBe!=null){
+//                        Log.d("Fragment3", "logingBe.getResult():" + logingBe.getResult());
+//                        if (logingBe.getResult()==null){
+//                            EventBus.getDefault().post(new ArrayList<MachineBean.ResultBean>());
+//                        }else {
+//                            EventBus.getDefault().post(logingBe.getResult());
+//                        }
+//                        Log.d("Fragment3", "发送");
+//                    }
+//                    link_getlumiList();
 //                }
-            }
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                Log.d("AllConnects", "请求成功" + call.request().toString());
-                //获得返回体
-                String ss=null;
-                MachineBean logingBe = null;
-                try {
-                    ResponseBody body = response.body();
-                    ss = body.string().trim();
-                    Log.d("LoginActivity", "获取设备数据"+ss);
-                    JsonObject jsonObject = GsonUtil.parse(ss).getAsJsonObject();
-                    Gson gson = new Gson();
-                    logingBe = gson.fromJson(jsonObject, MachineBean.class);
-                    if (logingBe!=null && logingBe.isSuccess()){
-                        if (logingBe.getCode()==1 && logingBe.getResult()!=null){
-                                if (logingBe.getResult().size()>0){
-                                    logingBe.getResult().get(0).setType(1001);
-                                }
-                        }else {
-                            if (getActivity()!=null){
-                                ToastUtils.setMessage(jsonObject.get("errorMsg").getAsString(),zhangzhe);
-                            }
-                        }
-                    }else {
-                        if (logingBe.getCode()==102){
-                            //token过期
-                            DialogManager.getAppManager().showToken();
-                        }else {
-                            if (getActivity()!=null){
-                                ToastUtils.setMessage(jsonObject.get("errorMsg").getAsString(),zhangzhe);
-                            }
-                        }
-                    }
-                } catch (Exception e) {
-                    Log.d("AllConnects", e.getMessage() + "异常");
-                }finally {
-                    if (logingBe!=null){
-                        Log.d("Fragment3", "logingBe.getResult():" + logingBe.getResult());
-                        if (logingBe.getResult()==null){
-                            EventBus.getDefault().post(new ArrayList<MachineBean.ResultBean>());
-                        }else {
-                            EventBus.getDefault().post(logingBe.getResult());
-                        }
-                        Log.d("Fragment3", "发送");
-                    }
-                    link_getlumiList();
-                }
-            }
-        });
-    }
-
-    private MediaType JSONTYPE  = MediaType.parse("application/json");
-    private void link_getlumiList() {
-        JSONObject json =new  JSONObject();
-        try {
-            json.put("pinlessUser", MyApplication.myApplication.getSaveInfoBeanBox().get(123456).getPhone());
-            json.put("modelType", 1);
-        } catch (JSONException e) {
-           Log.d("Fragment3", e.getMessage()+"AllConnects");
-        }
-       // Log.d("Fragment3", "AllConnects1111");
-        Request.Builder requestBuilder = new Request.Builder()
-                .header("token", MyApplication.myApplication.getToken())
-                .post(RequestBody.create(json.toString(),JSONTYPE))
-                .url(Consts.URL2+"/app/lvmi/list");
-        // step 3：创建 Call 对象
-        Call call = MyApplication.okHttpClient.newCall(requestBuilder.build());
-        //step 4: 开始异步请求
-      //  Log.d("Fragment3", "AllConnects1111");
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Log.d("AllConnects", "请求失败" + e.getMessage());
-                if (getActivity()!=null){
-                   // ToastUtils.setMessage("网络请求失败",recyclerView);
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            refreshLayout.finishRefresh();
-                        }
-                    });
-                }
-            }
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                Log.d("AllConnects", "请求成功" + call.request().toString());
-                //获得返回体
-                String ss=null;
-                try {
-                    ResponseBody body = response.body();
-                    ss = body.string().trim();
-                    Log.d("AllConnects", "获取绿米设备数据"+ss);
-                    JsonObject jsonObject = GsonUtil.parse(ss).getAsJsonObject();
-                    Gson gson = new Gson();
-                    LuMIDevBean logingBe = gson.fromJson(jsonObject, LuMIDevBean.class);
-                     if (logingBe.isSuccess()){
-                        if (logingBe.getCode()==1 && logingBe.getData()!=null){
-                            if (logingBe.getData().size()>0){
-                                    for (LuMIDevBean.DataDTO datum : logingBe.getData()) {
-                                        WGInfoSave save=MyApplication.myApplication.getWgInfoSaveBox().query().equal(WGInfoSave_.did,datum.getDid()).build().findFirst();
-                                        if (save==null){
-                                            WGInfoSave wgInfoSave=new WGInfoSave();
-                                            wgInfoSave.setModle(datum.getModel());
-                                            wgInfoSave.setWeizhi(datum.getPlace());
-                                            wgInfoSave.setName(datum.getName());
-                                            wgInfoSave.setState(datum.getStatus());
-                                            wgInfoSave.setFirmwareVersion(datum.getFirmwareVersion());
-                                            wgInfoSave.setDid(datum.getDid());
-                                            wgInfoSave.setParentDid(datum.getParentDid());
-                                            wgInfoSave.setModelType(datum.getModelType());
-                                            wgInfoSave.setPhoto(datum.getStr1());
-                                            wgInfoSave.setOPen(true);
-                                            wgInfoSave.setArgb("ffffff");
-                                            wgInfoSave.setLight(50);
-                                            wgInfoSave.setSoundValue(60);
-                                            wgInfoSave.setWeizhi("房间");
-                                            MyApplication.myApplication.getWgInfoSaveBox().put(wgInfoSave);
-                                        }
-                                    }
-                                   EventBus.getDefault().post(logingBe);
-                                }
-                        }
-                     }
-                } catch (Exception e) {
-                    Log.d("AllConnects", e.getMessage() + "异常");
-                }finally {
-                    if (getActivity()!=null){
-                       // ToastUtils.setMessage("网络请求失败",recyclerView);
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                refreshLayout.finishRefresh();
-                            }
-                        });
-                    }
-                }
-            }
-        });
-    }
+//            }
+//        });
+//    }
+//
+//    private MediaType JSONTYPE  = MediaType.parse("application/json");
+//    private void link_getlumiList() {
+//        JSONObject json =new  JSONObject();
+//        try {
+//            json.put("pinlessUser", MyApplication.myApplication.getSaveInfoBeanBox().get(123456).getPhone());
+//            json.put("modelType", 1);
+//        } catch (JSONException e) {
+//           Log.d("Fragment3", e.getMessage()+"AllConnects");
+//        }
+//       // Log.d("Fragment3", "AllConnects1111");
+//        Request.Builder requestBuilder = new Request.Builder()
+//                .header("token", MyApplication.myApplication.getToken())
+//                .post(RequestBody.create(json.toString(),JSONTYPE))
+//                .url(Consts.URL2+"/app/lvmi/list");
+//        // step 3：创建 Call 对象
+//        Call call = MyApplication.okHttpClient.newCall(requestBuilder.build());
+//        //step 4: 开始异步请求
+//      //  Log.d("Fragment3", "AllConnects1111");
+//        call.enqueue(new Callback() {
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//                Log.d("AllConnects", "请求失败" + e.getMessage());
+//                if (getActivity()!=null){
+//                   // ToastUtils.setMessage("网络请求失败",recyclerView);
+//                    getActivity().runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            refreshLayout.finishRefresh();
+//                        }
+//                    });
+//                }
+//            }
+//            @Override
+//            public void onResponse(Call call, Response response) throws IOException {
+//                Log.d("AllConnects", "请求成功" + call.request().toString());
+//                //获得返回体
+//                String ss=null;
+//                try {
+//                    ResponseBody body = response.body();
+//                    ss = body.string().trim();
+//                    Log.d("AllConnects", "获取绿米设备数据"+ss);
+//                    JsonObject jsonObject = GsonUtil.parse(ss).getAsJsonObject();
+//                    Gson gson = new Gson();
+//                    LuMIDevBean logingBe = gson.fromJson(jsonObject, LuMIDevBean.class);
+//                     if (logingBe.isSuccess()){
+//                        if (logingBe.getCode()==1 && logingBe.getData()!=null){
+//                            if (logingBe.getData().size()>0){
+//                                    for (LuMIDevBean.DataDTO datum : logingBe.getData()) {
+//                                        WGInfoSave save=MyApplication.myApplication.getWgInfoSaveBox().query().equal(WGInfoSave_.did,datum.getDid()).build().findFirst();
+//                                        if (save==null){
+//                                            WGInfoSave wgInfoSave=new WGInfoSave();
+//                                            wgInfoSave.setModle(datum.getModel());
+//                                            wgInfoSave.setWeizhi(datum.getPlace());
+//                                            wgInfoSave.setName(datum.getName());
+//                                            wgInfoSave.setState(datum.getStatus());
+//                                            wgInfoSave.setFirmwareVersion(datum.getFirmwareVersion());
+//                                            wgInfoSave.setDid(datum.getDid());
+//                                            wgInfoSave.setParentDid(datum.getParentDid());
+//                                            wgInfoSave.setModelType(datum.getModelType());
+//                                            wgInfoSave.setPhoto(datum.getStr1());
+//                                            wgInfoSave.setOPen(true);
+//                                            wgInfoSave.setArgb("ffffff");
+//                                            wgInfoSave.setLight(50);
+//                                            wgInfoSave.setSoundValue(60);
+//                                            wgInfoSave.setWeizhi("房间");
+//                                            MyApplication.myApplication.getWgInfoSaveBox().put(wgInfoSave);
+//                                        }
+//                                    }
+//                                   EventBus.getDefault().post(logingBe);
+//                                }
+//                        }
+//                     }
+//                } catch (Exception e) {
+//                    Log.d("AllConnects", e.getMessage() + "异常");
+//                }finally {
+//                    if (getActivity()!=null){
+//                       // ToastUtils.setMessage("网络请求失败",recyclerView);
+//                        getActivity().runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                refreshLayout.finishRefresh();
+//                            }
+//                        });
+//                    }
+//                }
+//            }
+//        });
+//    }
 
 
 
