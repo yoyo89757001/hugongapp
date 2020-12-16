@@ -7,6 +7,7 @@ import android.content.Context;
 import android.util.Log;
 import androidx.multidex.MultiDex;
 import com.clj.fastble.BleManager;
+import com.example.yiliaoyinian.Beans.JPushMSGBean;
 import com.example.yiliaoyinian.Beans.MyObjectBox;
 import com.example.yiliaoyinian.Beans.SaveInfoBean;
 import com.example.yiliaoyinian.Beans.SphygmomanometerDataBean;
@@ -38,6 +39,7 @@ public class MyApplication extends Application {
     public static MyApplication myApplication;
     private Box<UserNameBean> userNameBeanBox=null;
     private Box<SaveInfoBean> saveInfoBeanBox=null;
+    private Box<JPushMSGBean> jPushMSGBeanBox=null;
 
     private Box<WGInfoSave> wgInfoSaveBox=null;
 
@@ -121,6 +123,7 @@ public class MyApplication extends Application {
         saveInfoBeanBox= mBoxStore.boxFor(SaveInfoBean.class);
         userNameBeanBox= mBoxStore.boxFor(UserNameBean.class);
         sphygmomanometerDataBox= mBoxStore.boxFor(SphygmomanometerDataBean.class);
+        jPushMSGBeanBox= mBoxStore.boxFor(JPushMSGBean.class);
 
         wgInfoSaveBox= mBoxStore.boxFor(WGInfoSave.class);
 
@@ -180,6 +183,9 @@ public class MyApplication extends Application {
 
     public Box<WGInfoSave> getWgInfoSaveBox(){
         return wgInfoSaveBox;
+    }
+    public Box<JPushMSGBean> getjPushMSGBeanBox(){
+        return jPushMSGBeanBox;
     }
 
 }

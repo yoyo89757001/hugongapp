@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:7964859150498525168",
-      "lastPropertyId": "19:96754720014460143",
+      "lastPropertyId": "20:7283770044117789519",
       "name": "SaveInfoBean",
       "properties": [
         {
@@ -106,6 +106,12 @@
           "id": "19:96754720014460143",
           "name": "pwd",
           "type": 9
+        },
+        {
+          "id": "20:7283770044117789519",
+          "name": "showPB",
+          "type": 1,
+          "flags": 4
         }
       ],
       "relations": []

@@ -18,18 +18,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 
+import com.example.yiliaoyinian.Beans.Kdaasd;
+import com.example.yiliaoyinian.Beans.RKLBENbean;
 import com.example.yiliaoyinian.Beans.UnFinshBean;
 import com.example.yiliaoyinian.MyApplication;
 import com.example.yiliaoyinian.R;
 import com.example.yiliaoyinian.adapter.UnFinshAdapter;
-import com.example.yiliaoyinian.utils.AppManager;
 import com.example.yiliaoyinian.utils.Consts;
 import com.example.yiliaoyinian.utils.DialogManager;
 import com.example.yiliaoyinian.utils.GsonUtil;
 import com.example.yiliaoyinian.utils.ToastUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
@@ -41,7 +41,13 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -55,12 +61,12 @@ import okhttp3.ResponseBody;
 public class UnFinshFragment extends Fragment {
     private RecyclerView recyclerView;
     private UnFinshAdapter adapter;
-    private List<UnFinshBean.ResultBean> taskBeanList=new ArrayList<>();
+    private List<Kdaasd> taskBeanList=new ArrayList<>();
     private SmartRefreshLayout refreshLayout;
+    private static final ConcurrentHashMap<String, String> concurrentHashMap = new ConcurrentHashMap<String, String>();
 
 
     public UnFinshFragment() {
-
     }
 
 
@@ -87,31 +93,13 @@ public class UnFinshFragment extends Fragment {
                 link_getPendService();
             }
         });
-        // 设置加载更多监听事件
-//        adapter.getLoadMoreModule().setOnLoadMoreListener(new OnLoadMoreListener() {
-//            @Override
-//            public void onLoadMore() {
-//                //加载更多
-//                Log.d("Fragment1_1", "加载更多un");
-//                // 当前这次数据加载完毕，调用此方法
-//                //  mAdapter.getLoadMoreModule().loadMoreComplete();
-//                // 当前这次数据加载错误，调用此方法
-//                //   mAdapter.getLoadMoreModule().loadMoreFail();
-//            }
-//        });
+
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
                 Log.d("Fragment1_1", "position:" + position);
 
-                Intent intent=new Intent(getActivity(),TaskInfoActivity.class);
-                intent.putExtra("id",taskBeanList.get(position).getServiceId());
-                intent.putExtra("type",1);//未完成
-                intent.putExtra("title",taskBeanList.get(position).getItemName());
-                intent.putExtra("lasttime",taskBeanList.get(position).getLastTime());
-                intent.putExtra("name",taskBeanList.get(position).getPatientName());
 
-                startActivity(intent);
             }
         });
 
@@ -134,7 +122,7 @@ public class UnFinshFragment extends Fragment {
         Request.Builder requestBuilder = new Request.Builder()
                 .header("token", MyApplication.myApplication.getToken())
                 .get()
-                .url(Consts.URL+"/api/nurseService/getPendService");
+                .url(Consts.URL+"/api/nurse/mission/list");
         // step 3：创建 Call 对象
         call = MyApplication.okHttpClient.newCall(requestBuilder.build());
         //step 4: 开始异步请求
@@ -163,20 +151,31 @@ public class UnFinshFragment extends Fragment {
                     Log.d("LoginActivity", "未处理服务:"+ss);
                     JsonObject jsonObject = GsonUtil.parse(ss).getAsJsonObject();
                     Gson gson = new Gson();
-                    UnFinshBean logingBe = gson.fromJson(jsonObject, UnFinshBean.class);
+                    RKLBENbean logingBe = gson.fromJson(jsonObject, RKLBENbean.class);
                     if (logingBe.isSuccess()){
                         if (logingBe.getCode()==1 && logingBe.getResult()!=null){
+                            concurrentHashMap.clear();
+                            for (RKLBENbean.ResultDTO resultDTO : logingBe.getResult()) {
+                                if (concurrentHashMap.containsKey(resultDTO.getPeriod())){
+                                   String temp= concurrentHashMap.get(resultDTO.getPeriod());
+                                    concurrentHashMap.put(resultDTO.getPeriod(),temp+"\n"+resultDTO.getProjectName());
+                                }else {
+                                    concurrentHashMap.put(resultDTO.getPeriod(),resultDTO.getProjectName());
+                                }
+                            }
 
+                            for (Map.Entry<String, String> entry : concurrentHashMap.entrySet()) {
+                                taskBeanList.add(new Kdaasd(entry.getKey(),entry.getValue()));
+                               // System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+                            }
                             if (getActivity()!=null){
                                 getActivity().runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
                                         try {
-                                            taskBeanList.clear();
-                                            taskBeanList.addAll(logingBe.getResult());
+
                                             adapter.notifyDataSetChanged();
-                                           // adapter.getLoadMoreModule().loadMoreComplete();
-                                            //adapter.getLoadMoreModule().loadMoreEnd(true);
+
                                         }catch (Exception e){
                                             e.printStackTrace();
                                         }

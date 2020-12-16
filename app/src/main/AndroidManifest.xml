@@ -96,6 +96,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.MainActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" /> <!-- android:launchMode="singleInstance" 这个模式会导致二级界面按home键之后 返回 会回到主界面(奇怪的问题) -->
 
         <activity

@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.yiliaoyinian.Beans.ErrorBean;
 import com.example.yiliaoyinian.Beans.MssagesInfoBean;
 import com.example.yiliaoyinian.MyApplication;
@@ -42,6 +44,7 @@ public class MessageInfoActivity extends BaseActivity {
     TextView fabuzhe;
     TextView shijian;
     private long idid;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

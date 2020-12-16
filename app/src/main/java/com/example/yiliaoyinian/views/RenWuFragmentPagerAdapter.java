@@ -8,20 +8,20 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.yiliaoyinian.ui.fragmengmain.Fragment3;
-import com.example.yiliaoyinian.ui.fragmengmain.Fragment3_1;
+import com.example.yiliaoyinian.ui.fragments1.fuwu.UnFinshFragment;
 import com.example.yiliaoyinian.ui.fragments1.huanzhe.Fragment1_2;
 
 import org.jetbrains.annotations.NotNull;
 
 public class RenWuFragmentPagerAdapter extends FragmentPagerAdapter {
 
-    private Fragment3_1 myFragment1 = null;
+    private UnFinshFragment myFragment1 = null;
     private Fragment1_2 myFragment2 = null;
 
 
     public RenWuFragmentPagerAdapter(FragmentManager fragmentManager) {
         super(fragmentManager,BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        myFragment1 = new Fragment3_1();
+        myFragment1 = new UnFinshFragment();
         myFragment2 = new Fragment1_2();
 
 

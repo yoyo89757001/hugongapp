@@ -1,5 +1,6 @@
 package com.example.yiliaoyinian.services;
 
+import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,24 +9,31 @@ import android.util.Log;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.example.yiliaoyinian.Beans.JGBleBean;
+import com.example.yiliaoyinian.Beans.JPushMSGBean;
 import com.example.yiliaoyinian.Beans.SaveInfoBean;
 import com.example.yiliaoyinian.Beans.SphygmomanometerDataBean;
 import com.example.yiliaoyinian.Beans.TSWGBean;
 import com.example.yiliaoyinian.MyApplication;
+import com.example.yiliaoyinian.R;
+import com.example.yiliaoyinian.ui.LoginActivity;
 import com.example.yiliaoyinian.ui.MainActivity;
 import com.example.yiliaoyinian.utils.DateUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
+import cn.jpush.android.api.BasicPushNotificationBuilder;
 import cn.jpush.android.api.CmdMessage;
 import cn.jpush.android.api.CustomMessage;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.JPushMessage;
 import cn.jpush.android.api.NotificationMessage;
 import cn.jpush.android.service.JPushMessageReceiver;
+import io.objectbox.Box;
 
 public class MyJPushMessageReceiver extends JPushMessageReceiver {
     private static final String TAG = "PushMessageReceiver";
+    private Box<JPushMSGBean> jPushMSGBeanBox=MyApplication.myApplication.getjPushMSGBeanBox();
+
     @Override
     public void onMessage(Context context, CustomMessage customMessage) {
         Log.e(TAG,"[onMessage] "+customMessage);
@@ -46,7 +54,7 @@ public class MyJPushMessageReceiver extends JPushMessageReceiver {
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP );
             context.startActivity(i);
         }catch (Throwable throwable){
-
+            Log.d(TAG, "打开自定义的Activity:" + throwable.getMessage());
         }
     }
 
@@ -74,6 +82,14 @@ public class MyJPushMessageReceiver extends JPushMessageReceiver {
     @Override
     public void onNotifyMessageArrived(Context context, NotificationMessage message) {
         Log.e(TAG,"[onNotifyMessageArrived] "+message);
+       // setStyleBasic(true,context);
+
+        JPushMSGBean bean=new JPushMSGBean();
+        bean.setMessage("ffsdfseqw多萨达所打额外全额");
+        bean.setTime2(System.currentTimeMillis());
+        jPushMSGBeanBox.put(bean);
+        EventBus.getDefault().post("updateGaoJing");
+
     }
 
     @Override
@@ -147,6 +163,13 @@ public class MyJPushMessageReceiver extends JPushMessageReceiver {
                      EventBus.getDefault().post(object);
                  }
              }
+             setStyleBasic(true,context);
+             JPushMSGBean bean=new JPushMSGBean();
+             bean.setMessage("ffsdfseqw多萨达所打额外全额");
+             bean.setTime2(System.currentTimeMillis());
+             jPushMSGBeanBox.put(bean);
+
+             EventBus.getDefault().post("updateGaoJing");
 
 //             JSONObject yyy= ssss.getJSONObject("data");
 //             if (yyy.get("msgType")!=null)
@@ -166,5 +189,18 @@ public class MyJPushMessageReceiver extends JPushMessageReceiver {
     public void onNotificationSettingsCheck(Context context, boolean isOn, int source) {
         super.onNotificationSettingsCheck(context, isOn, source);
         Log.e(TAG,"[onNotificationSettingsCheck] isOn:"+isOn+",source:"+source);
+    }
+
+    private void setStyleBasic(boolean opened,Context context){
+        BasicPushNotificationBuilder builder = new BasicPushNotificationBuilder(context);
+        builder.statusBarDrawable = R.mipmap.ic_launcher;
+        builder.notificationFlags = Notification.FLAG_AUTO_CANCEL;  //设置为点击后自动消失
+        if (opened) {
+            builder.notificationDefaults = Notification.DEFAULT_SOUND;  //设置为铃声（ Notification.DEFAULT_SOUND）或者震动（ Notification.DEFAULT_VIBRATE）
+        } else {
+            builder.notificationDefaults = Notification.DEFAULT_LIGHTS;	//设置为闪光
+        }
+
+        JPushInterface.setDefaultPushNotificationBuilder(builder);
     }
 }

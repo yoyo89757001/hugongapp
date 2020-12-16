@@ -58,9 +58,9 @@ public class SaoMaActivity extends BaseActivity implements QRCodeView.Delegate, 
         if (type==1){
             title.setText("上班签到");
         }else if (type==2){
-            title.setText("服务签到");
+            title.setText("巡视签到");
         }else if (type==3){
-            title.setText("下班交接");
+            title.setText("下班签到");
         }
 
     }
@@ -75,7 +75,6 @@ public class SaoMaActivity extends BaseActivity implements QRCodeView.Delegate, 
         SMBean smBean=new SMBean(type,result);
         EventBus.getDefault().post(smBean);
         finish();
-
     }
 
 

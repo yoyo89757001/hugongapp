@@ -24,6 +24,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 
 import com.example.yiliaoyinian.Beans.ErrorBean;
+import com.example.yiliaoyinian.Beans.JPushMSGBean;
 import com.example.yiliaoyinian.Beans.LiChuangBean;
 import com.example.yiliaoyinian.Beans.SaveInfoBean;
 import com.example.yiliaoyinian.MyApplication;
@@ -50,6 +51,8 @@ import java.util.ArrayList;
 
 import java.util.List;
 import java.util.Objects;
+
+import io.objectbox.Box;
 import okhttp3.Call;
 import okhttp3.Callback;
 
@@ -157,6 +160,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         //Log.d("MainActivity", MyApplication.myApplication.getSaveInfoBeanBox().get(123456).getRegistrationId()+"极光ID");
         updateNurseInfo(MyApplication.myApplication.getSaveInfoBeanBox().get(123456).getRegistrationId());
 
+
     }
 
 
@@ -172,7 +176,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                 .addHeader("token", MyApplication.myApplication.getToken())
                 .addHeader("Content-Type", "application/json")
                 .get()
-                .url(Consts.URL3+"/api/nurseWorker/updateNurseInfo?auroraId="+idid).build();
+                .url(Consts.URL+"/api/nurseWorker/updateNurseInfo?auroraId="+idid).build();
         // step 3：创建 Call 对象
         Call call = MyApplication.okHttpClient.newCall(builder);
         //step 4: 开始异步请求
