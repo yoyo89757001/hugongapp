@@ -3,8 +3,8 @@ package com.example.yiliaoyinian.ui.fragmengmain;
 
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
-
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
@@ -13,57 +13,51 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.alibaba.fastjson.JSONObject;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
+import com.example.yiliaoyinian.Beans.AAbb;
 import com.example.yiliaoyinian.Beans.ErWeiMaBean;
 import com.example.yiliaoyinian.Beans.ErrorBean;
+import com.example.yiliaoyinian.Beans.IKjdd;
 import com.example.yiliaoyinian.Beans.JPushMSGBean;
 import com.example.yiliaoyinian.Beans.JPushMSGBean_;
 import com.example.yiliaoyinian.Beans.SMBean;
 import com.example.yiliaoyinian.Beans.UnMessageBean;
 import com.example.yiliaoyinian.MyApplication;
 import com.example.yiliaoyinian.R;
+import com.example.yiliaoyinian.dialog.CommomDialog2;
 import com.example.yiliaoyinian.ui.SaoMaActivity;
 import com.example.yiliaoyinian.ui.wode.MessageInfoActivity;
-
 import com.example.yiliaoyinian.utils.Consts;
 import com.example.yiliaoyinian.utils.DateUtils;
 import com.example.yiliaoyinian.utils.DialogManager;
 import com.example.yiliaoyinian.utils.GsonUtil;
 import com.example.yiliaoyinian.utils.ToastUtils;
-
 import com.gongwen.marqueen.SimpleMF;
 import com.gongwen.marqueen.SimpleMarqueeView;
 import com.gongwen.marqueen.util.OnItemClickListener;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-
 import com.qmuiteam.qmui.layout.QMUIButton;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
-
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONException;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
-
 import io.objectbox.Box;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -128,116 +122,131 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)//注意这是子线程
     public void wxMSGss(SMBean msgWarp) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                button1.setEnabled(false);
+                button2.setEnabled(false);
+                button3.setEnabled(false);
+            }
+        });
         SystemClock.sleep(1000);
-        switch (msgWarp.getType()){
-            case 1://上班
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            ErWeiMaBean student = JSONObject.parseObject(msgWarp.getMsg(), ErWeiMaBean.class);//type:1-患者，2-楼层，3-房间，4-床位
-                            //签到//发送请求给后台签到
-                            qmuiTipDialog = new QMUITipDialog.Builder(getActivity())
-                                    .setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING)
-                                    .setTipWord("上班签到中...")
-                                    .create();
-                            qmuiTipDialog.show();
-                            link_completeSB(student.getType(),student.getData().getDataName(),student.getData().getDataId(),1);
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                button1.setEnabled(true);
+                button2.setEnabled(true);
+                button3.setEnabled(true);
+            }
+        });
+        try {
+            ErWeiMaBean student = JSONObject.parseObject(msgWarp.getMsg(), ErWeiMaBean.class);//type:1-患者，2-楼层，3-房间，4-床位
+            Log.d("Fragment1", "student.getType():" + student.getType());
+            if (student.getType()!=3 && student.getType()!=4){
+                showMEG();
+                return;
+            }
+            switch (msgWarp.getType()){
+                case 1://上班
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                //签到//发送请求给后台签到
+                                qmuiTipDialog = new QMUITipDialog.Builder(getActivity())
+                                        .setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING)
+                                        .setTipWord("上班签到中...")
+                                        .create();
+                                qmuiTipDialog.show();
+                                link_completeSB(student.getType(),student.getData().getDataName(),student.getData().getDataId(),1);
 
-                        }catch (Exception e){
-                            QMUITipDialog qmuiTipDialog1 = new QMUITipDialog.Builder(Fragment1.this.getActivity())
-                                    .setIconType(QMUITipDialog.Builder.ICON_TYPE_FAIL)
-                                    .setTipWord("你扫错二维码了")
-                                    .create();
-                            qmuiTipDialog1.show();
-                            Log.d("Fragment1", "扫码:"+e.getMessage());
-                            recyclerView.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    qmuiTipDialog1.dismiss();
-                                }
-                            }, 1600);
-                        }
-                    }
-                });
-                break;
-            case 2://巡视
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            ErWeiMaBean student = JSONObject.parseObject(msgWarp.getMsg(), ErWeiMaBean.class);//type:1-患者，2-楼层，3-房间，4-床位
-                            //签到//发送请求给后台签到
-                            qmuiTipDialog = new QMUITipDialog.Builder(getActivity())
-                                    .setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING)
-                                    .setTipWord("巡视签到中...")
-                                    .create();
-                            qmuiTipDialog.show();
-                            String p=null;
-                            if (student.getType()==1){
-                                p=student.getData().getDataName();
-                            }else if (student.getType()==2){
-                                p="楼层签到";
-                            }else if (student.getType()==3){
-                                p="房间签到";
-                            }else if (student.getType()==4){
-                                p="床位签到";
+                            }catch (Exception e){
+                                showMEG();
                             }
-                            link_complete(student.getType()+"",p,JSONObject.toJSONString(student.getData()),student.getData().getDataType());
-                        }catch (Exception e){
-                            QMUITipDialog qmuiTipDialog1 = new QMUITipDialog.Builder(Fragment1.this.getActivity())
-                                    .setIconType(QMUITipDialog.Builder.ICON_TYPE_FAIL)
-                                    .setTipWord("你扫错二维码了")
-                                    .create();
-                            qmuiTipDialog1.show();
-                            Log.d("Fragment1", "扫码:"+e.getMessage());
-                            recyclerView.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    qmuiTipDialog1.dismiss();
-                                }
-                            }, 1600);
                         }
-                    }
-                });
-
-                break;
-            case 3://下班
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            ErWeiMaBean student = JSONObject.parseObject(msgWarp.getMsg(), ErWeiMaBean.class);//type:1-患者，2-楼层，3-房间，4-床位
-                            //签到//发送请求给后台签到
-                            qmuiTipDialog = new QMUITipDialog.Builder(getActivity())
-                                    .setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING)
-                                    .setTipWord("下班签到中...")
-                                    .create();
-                            qmuiTipDialog.show();
-                            link_completeSB(student.getType(),student.getData().getDataName(),student.getData().getDataId(),2);
-
-                        }catch (Exception e){
-                            QMUITipDialog qmuiTipDialog1 = new QMUITipDialog.Builder(Fragment1.this.getActivity())
-                                    .setIconType(QMUITipDialog.Builder.ICON_TYPE_FAIL)
-                                    .setTipWord("你扫错二维码了")
-                                    .create();
-                            qmuiTipDialog1.show();
-                            Log.d("Fragment1", "扫码:"+e.getMessage());
-                            recyclerView.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    qmuiTipDialog1.dismiss();
+                    });
+                    break;
+                case 2://巡视
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                //签到//发送请求给后台签到
+                                qmuiTipDialog = new QMUITipDialog.Builder(getActivity())
+                                        .setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING)
+                                        .setTipWord("巡视签到中...")
+                                        .create();
+                                qmuiTipDialog.show();
+                                String p=null;
+                                if (student.getType()==1){
+                                    p=student.getData().getDataName();
+                                }else if (student.getType()==2){
+                                    p="楼层签到";
+                                }else if (student.getType()==3){
+                                    p="房间签到";
+                                }else if (student.getType()==4){
+                                    p="床位签到";
                                 }
-                            }, 1600);
+                                link_complete(student.getType()+"",p,JSONObject.toJSONString(student.getData()),student.getData().getDataType());
+                            }catch (Exception e){
+                                showMEG();
+                            }
                         }
-                    }
-                });
-                break;
+                    });
+
+                    break;
+                case 3://下班
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                //签到//发送请求给后台签到
+                                qmuiTipDialog = new QMUITipDialog.Builder(getActivity())
+                                        .setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING)
+                                        .setTipWord("下班签到中...")
+                                        .create();
+                                qmuiTipDialog.show();
+                                link_completeSB(student.getType(),student.getData().getDataName(),student.getData().getDataId(),2);
+
+                            }catch (Exception e){
+                                showMEG();
+                            }
+                        }
+                    });
+                    break;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            showMEG();
         }
+
         Log.d("Fragment1", msgWarp.toString()+"收到的扫码数据");
 
     }
 
+
+    private void showMEG(){
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                QMUITipDialog qmuiTipDialog1 = new QMUITipDialog.Builder(Fragment1.this.getActivity())
+                        .setIconType(QMUITipDialog.Builder.ICON_TYPE_FAIL)
+                        .setTipWord("你扫错二维码了")
+                        .create();
+                qmuiTipDialog1.show();
+                recyclerView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            qmuiTipDialog1.dismiss();
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                }, 1800);
+            }
+        });
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -505,7 +514,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                                                 if (qmuiTipDialog != null)
                                                     qmuiTipDialog.dismiss();
                                             }
-                                        }, 1600);
+                                        }, 1800);
 
                                     }
                                 });
@@ -587,28 +596,72 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                     Log.d("LoginActivity", ss+"上班扫码返回");
                     JsonObject jsonObject = GsonUtil.parse(ss).getAsJsonObject();
                     Gson gson = new Gson();
-                    ErrorBean logingBe = gson.fromJson(jsonObject, ErrorBean.class);
+                    IKjdd logingBe = gson.fromJson(jsonObject, IKjdd.class);
                     if (logingBe.isSuccess()) {
                         if (logingBe.getCode() == 1) {
-//                            if (getActivity()!=null)
-//                                getActivity().runOnUiThread(new Runnable() {
-//                                    @Override
-//                                    public void run() {
-//                                        qmuiTipDialog = new QMUITipDialog.Builder(getActivity())
-//                                                .setIconType(QMUITipDialog.Builder.ICON_TYPE_SUCCESS)
-//                                                .setTipWord("签到成功")
-//                                                .create();
-//                                        qmuiTipDialog.show();
-//                                        recyclerView.postDelayed(new Runnable() {
-//                                            @Override
-//                                            public void run() {
-//                                                if (qmuiTipDialog != null)
-//                                                    qmuiTipDialog.dismiss();
-//                                            }
-//                                        }, 1600);
-//
-//                                    }
-//                                });
+                            if (getActivity()!=null)
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if (modle==1){
+                                            StringBuilder  tit = new StringBuilder();
+                                            if (type==3){
+                                                tit.append("已提取“").append(dataName).append("”房间任务\n");
+                                                for (IKjdd.ResultDTO resultDTO : logingBe.getResult()) {
+                                                    tit.append(resultDTO.getElderName());
+                                                    tit.append(" ");
+                                                    if (resultDTO.getElderSex()==1){
+                                                        tit.append("男");
+                                                    }else {
+                                                        tit.append("女");
+                                                    }
+                                                    tit.append(" ");
+                                                    tit.append(resultDTO.getElderAge()).append("岁");
+                                                    tit.append("\n");
+                                                }
+                                            }
+                                            if (type==4){
+                                                tit.append("已提取“").append(dataName).append("”长者任务\n");
+                                                for (IKjdd.ResultDTO resultDTO : logingBe.getResult()) {
+                                                    tit.append(resultDTO.getElderName());
+                                                    tit.append(" ");
+                                                    if (resultDTO.getElderSex()==1){
+                                                        tit.append("男");
+                                                    }else {
+                                                        tit.append("女");
+                                                    }
+                                                    tit.append(" ");
+                                                    tit.append(resultDTO.getElderAge()).append("岁");
+                                                    tit.append("\n");
+                                                }
+                                            }
+                                            new CommomDialog2(getContext(), R.style.dialogs2, tit.toString(), new CommomDialog2.OnCloseListener() {
+                                                @Override
+                                                public void onClick(Dialog dialog, boolean confirm) {
+                                                    // Log.d("DAFragment3", "confirm:" + confirm);
+                                                    if (confirm) {
+                                                        //退出动作
+                                                        dialog.dismiss();
+
+
+                                                    }
+                                                }
+                                            }).setTitle("上班签到").setPositiveButton("确定").show();
+                                            EventBus.getDefault().post(new AAbb(object.toString()));
+                                        }else {
+                                            new CommomDialog2(getContext(), R.style.dialogs2, "下班签到成功", new CommomDialog2.OnCloseListener() {
+                                                @Override
+                                                public void onClick(Dialog dialog, boolean confirm) {
+                                                    // Log.d("DAFragment3", "confirm:" + confirm);
+                                                    if (confirm) {
+                                                        //退出动作
+                                                        dialog.dismiss();
+                                                    }
+                                                }
+                                            }).setTitle("下班签到").setPositiveButton("确定").show();
+                                        }
+                                    }
+                                });
                         } else {
                             ToastUtils.setMessage(jsonObject.get("errorMsg").getAsString(), recyclerView);
                         }

@@ -16,6 +16,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnLoadMoreListener;
 
+import com.example.yiliaoyinian.Beans.AAbb;
 import com.example.yiliaoyinian.Beans.HuanZheBean0;
 
 import com.example.yiliaoyinian.MyApplication;
@@ -32,7 +33,11 @@ import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -40,7 +45,9 @@ import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.MediaType;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
@@ -58,11 +65,19 @@ public class Fragment1_2 extends Fragment {
     }
 
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void wxMSG(AAbb msgWarp){
+        link_getList();
+    }
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view=inflater.inflate(R.layout.fragment_fragment1_2, container, false);
+        EventBus.getDefault().register(this);
         recyclerView=view.findViewById(R.id.recyclerview);
         refreshLayout=view.findViewById(R.id.refreshLayout);
         adapter=new HuanZheAdapter(R.layout.zhangzhe_fragment1,taskBeanList);
@@ -101,16 +116,27 @@ public class Fragment1_2 extends Fragment {
             }
         });
 
-        link_getList();
-
         return view;
     }
 
     private void link_getList() {//已入科患者
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        org.json.JSONObject object = new org.json.JSONObject();
+        org.json.JSONObject object1 = new org.json.JSONObject();
+        try {
+            object1.put("pageNum",1);
+            object1.put("pageSize",200);
+            object.put("params", object1);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Log.d("上班扫码：", object.toString()+"");
+        RequestBody body = RequestBody.create(object.toString(), JSON);
         Request.Builder requestBuilder = new Request.Builder()
                 .header("token", MyApplication.myApplication.getToken())
-                .get()
-                .url(Consts.URL+"/api/nursePatient/getList");
+                .post(body)
+                .url(Consts.URL+"/api/nurse/record/list");
         // step 3：创建 Call 对象
        Call call = MyApplication.okHttpClient.newCall(requestBuilder.build());
         //step 4: 开始异步请求
@@ -186,5 +212,11 @@ public class Fragment1_2 extends Fragment {
                 }
             }
         });
+    }
+
+    @Override
+    public void onDestroyView() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroyView();
     }
 }

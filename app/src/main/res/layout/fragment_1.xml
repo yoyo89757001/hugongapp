@@ -144,7 +144,7 @@
         <com.qmuiteam.qmui.layout.QMUIButton
             android:layout_marginLeft="40dp"
             android:textColor="#FFFFFF"
-            android:background="#59B683"
+            android:background="#5897F0"
             android:textSize="18sp"
             android:id="@+id/l1"
             android:text="上班签到"
@@ -156,7 +156,7 @@
         <com.qmuiteam.qmui.layout.QMUIButton
             android:layout_marginLeft="40dp"
             android:textColor="#FFFFFF"
-            android:background="#59B683"
+            android:background="#7ECE51"
             android:textSize="18sp"
             android:id="@+id/l2"
             android:text="巡视签到"
