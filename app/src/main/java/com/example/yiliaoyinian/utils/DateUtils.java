@@ -304,9 +304,7 @@ public class DateUtils {
         @SuppressWarnings("unused")
         long lcc = Long.valueOf(time);
         // int i = Integer.parseInt(time);
-
         return sdr.format(new Date(lcc));
-
     }
     /**
      * 调用此方法输入所要转换的时间戳输入例如（1402733340）输出（"2014年06月14日16:09"）
@@ -315,12 +313,10 @@ public class DateUtils {
      * @return
      */
     public static String timet(String time) {
-        SimpleDateFormat sdr = new SimpleDateFormat("yyyy年MM月dd日  HH:mm", Locale.CHINA);
+        SimpleDateFormat sdr = new SimpleDateFormat("HH:mm\nyyyy年MM月dd日", Locale.CHINA);
         @SuppressWarnings("unused")
-        long lcc = Long.valueOf(time);
-        int i = Integer.parseInt(time);
-        String times = sdr.format(new Date(i * 1000L));
-        return times;
+        long lcc = Long.parseLong(time);
+        return sdr.format(new Date(lcc));
 
     }
 

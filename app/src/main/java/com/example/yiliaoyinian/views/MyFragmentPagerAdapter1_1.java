@@ -10,7 +10,7 @@
 //import com.example.yiliaoyinian.MyApplication;
 //import com.example.yiliaoyinian.ui.fragmengmain.Fragment1;
 //import com.example.yiliaoyinian.ui.fragments1.fuwu.Fragment1_1;
-//import com.example.yiliaoyinian.ui.fragments1.huanzhe.Fragment1_2;
+//import com.example.yiliaoyinian.ui.fragmengmain.Fragment1_2;
 //import org.jetbrains.annotations.NotNull;
 //
 //public class MyFragmentPagerAdapter1_1 extends FragmentPagerAdapter {

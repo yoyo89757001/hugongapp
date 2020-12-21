@@ -8,8 +8,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.yiliaoyinian.ui.fragmengmain.Fragment3;
-import com.example.yiliaoyinian.ui.fragments1.fuwu.UnFinshFragment;
-import com.example.yiliaoyinian.ui.fragments1.huanzhe.Fragment1_2;
+import com.example.yiliaoyinian.ui.fragmengmain.UnFinshFragment;
+import com.example.yiliaoyinian.ui.fragmengmain.Fragment1_2;
 
 import org.jetbrains.annotations.NotNull;
 

@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.yiliaoyinian.ui.fragments1.fuwu.FinshFragment;
 import com.example.yiliaoyinian.ui.fragments1.fuwu.Fragment1_1;
-import com.example.yiliaoyinian.ui.fragments1.fuwu.UnFinshFragment;
+import com.example.yiliaoyinian.ui.fragmengmain.UnFinshFragment;
 
 import org.jetbrains.annotations.NotNull;
 

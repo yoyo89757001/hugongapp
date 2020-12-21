@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -15,6 +16,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnLoadMoreListener;
@@ -59,7 +62,7 @@ import okhttp3.ResponseBody;
  */
 public class Fragment4 extends Fragment implements View.OnClickListener {
     TextView shijian,riqi,xingqi;
-    QMUIRadiusImageView head;
+    ImageView head;
     TextView name;
     LinearLayout ziliaoLl;
     private TextView zhibanbiao;
@@ -149,7 +152,7 @@ public class Fragment4 extends Fragment implements View.OnClickListener {
         Glide.with(getActivity())
                 .load(MyApplication.myApplication.getSaveInfoBeanBox().get(123456).getHeadImg())
                 .error(R.drawable.defo_bg)
-                //.apply(RequestOptions.bitmapTransform(new CircleCrop()))
+                .apply(RequestOptions.bitmapTransform(new RoundedCorners( 6)))
                 .into(head);
         name.setText(MyApplication.myApplication.getSaveInfoBeanBox().get(123456).getNurseName());
 

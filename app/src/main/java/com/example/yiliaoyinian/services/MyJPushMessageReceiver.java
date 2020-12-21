@@ -8,16 +8,17 @@ import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.example.yiliaoyinian.Beans.JGBleBean;
+import com.example.yiliaoyinian.Beans.Dfgg;
+
 import com.example.yiliaoyinian.Beans.JPushMSGBean;
-import com.example.yiliaoyinian.Beans.SaveInfoBean;
-import com.example.yiliaoyinian.Beans.SphygmomanometerDataBean;
+
+
 import com.example.yiliaoyinian.Beans.TSWGBean;
 import com.example.yiliaoyinian.MyApplication;
 import com.example.yiliaoyinian.R;
-import com.example.yiliaoyinian.ui.LoginActivity;
+
 import com.example.yiliaoyinian.ui.MainActivity;
-import com.example.yiliaoyinian.utils.DateUtils;
+
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -84,11 +85,11 @@ public class MyJPushMessageReceiver extends JPushMessageReceiver {
         Log.e(TAG,"[onNotifyMessageArrived] "+message);
        // setStyleBasic(true,context);
 
-        JPushMSGBean bean=new JPushMSGBean();
-        bean.setMessage("ffsdfseqw多萨达所打额外全额");
-        bean.setTime2(System.currentTimeMillis());
-        jPushMSGBeanBox.put(bean);
-        EventBus.getDefault().post("updateGaoJing");
+//        JPushMSGBean bean=new JPushMSGBean();
+//        bean.setMessage("ffsdfseqw多萨达所打额外全额");
+//        bean.setTime2(System.currentTimeMillis());
+//        jPushMSGBeanBox.put(bean);
+//        EventBus.getDefault().post("updateGaoJing");
 
     }
 
@@ -162,14 +163,18 @@ public class MyJPushMessageReceiver extends JPushMessageReceiver {
                      TSWGBean object=JSON.parseObject(String.valueOf(ssss),TSWGBean.class);
                      EventBus.getDefault().post(object);
                  }
+                 if (type.toString().equals("11")) {//告警推送
+                     Dfgg object=JSON.parseObject(String.valueOf(ssss),Dfgg.class);
+                     setStyleBasic(true,context);
+                     JPushMSGBean bean=new JPushMSGBean();
+                     bean.setMessage(object.getMsg()+"");
+                     bean.setTime2(object.getTime());
+                     jPushMSGBeanBox.put(bean);
+                     EventBus.getDefault().post(object);
+                 }
              }
-             setStyleBasic(true,context);
-             JPushMSGBean bean=new JPushMSGBean();
-             bean.setMessage("ffsdfseqw多萨达所打额外全额");
-             bean.setTime2(System.currentTimeMillis());
-             jPushMSGBeanBox.put(bean);
 
-             EventBus.getDefault().post("updateGaoJing");
+
 
 //             JSONObject yyy= ssss.getJSONObject("data");
 //             if (yyy.get("msgType")!=null)

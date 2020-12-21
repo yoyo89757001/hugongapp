@@ -23,6 +23,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.example.yiliaoyinian.Beans.AAbb;
+import com.example.yiliaoyinian.Beans.AAbb2;
+import com.example.yiliaoyinian.Beans.Dfgg;
 import com.example.yiliaoyinian.Beans.ErWeiMaBean;
 import com.example.yiliaoyinian.Beans.ErrorBean;
 import com.example.yiliaoyinian.Beans.IKjdd;
@@ -102,22 +104,20 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
             riqi.setText(DateUtils.times(System.currentTimeMillis()));
             xingqi.setText(DateUtils.getWeek(System.currentTimeMillis()));
         }
-        if (msgWarp.equals("updateGaoJing")){
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    jPushMSGBeans.clear();
-                    jPushMSGBeans.addAll(jPushMSGBeanBox.getAll());
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            gdfgd.setText("共"+jPushMSGBeans.size()+"条");
-                            adapter.notifyDataSetChanged();
-                        }
-                    });
-                }
-            }).start();
-        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    public void wxMSGts(Dfgg msgWarp) {
+        jPushMSGBeans.clear();
+        jPushMSGBeans.addAll(jPushMSGBeanBox.query().orderDesc(JPushMSGBean_.time2).build().find());
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                gdfgd.setText("共"+jPushMSGBeans.size()+"条");
+                adapter.notifyDataSetChanged();
+            }
+        });
+
     }
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)//注意这是子线程
@@ -312,7 +312,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
             @Override
             public void run() {
                 jPushMSGBeans.clear();
-                jPushMSGBeans.addAll(jPushMSGBeanBox.getAll());
+                jPushMSGBeans.addAll(jPushMSGBeanBox.query().orderDesc(JPushMSGBean_.time2).build().find());
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -337,6 +337,9 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         @Override
         protected void convert(@NotNull BaseViewHolder baseViewHolder, JPushMSGBean taskBean) {
             baseViewHolder.setText(R.id.title,taskBean.getMessage());
+            baseViewHolder.setText(R.id.time,DateUtils.timet(taskBean.getTime2()+""));
+            TextView textView=baseViewHolder.getView(R.id.title);
+            textView.setSelected(true);
 
         }
     }
@@ -642,12 +645,10 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                                                     if (confirm) {
                                                         //退出动作
                                                         dialog.dismiss();
-
-
                                                     }
                                                 }
                                             }).setTitle("上班签到").setPositiveButton("确定").show();
-                                            EventBus.getDefault().post(new AAbb(object.toString()));
+                                            EventBus.getDefault().post(new AAbb(""));
                                         }else {
                                             new CommomDialog2(getContext(), R.style.dialogs2, "下班签到成功", new CommomDialog2.OnCloseListener() {
                                                 @Override
@@ -659,6 +660,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                                                     }
                                                 }
                                             }).setTitle("下班签到").setPositiveButton("确定").show();
+                                            EventBus.getDefault().post(new AAbb2(""));
                                         }
                                     }
                                 });

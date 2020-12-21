@@ -136,6 +136,7 @@ public class PatientInfoActivity extends BaseActivity implements ViewPager.OnPag
                                     @Override
                                     public void run() {
                                         try {
+                                            if (null!=logingBe.getResult().getPatientInfo().getBedName())
                                             binding.chFh.setText(logingBe.getResult().getPatientInfo().getBedName());
                                             String timer=DateUtils.time(logingBe.getResult().getPatientInfo().getCheckInTime()+"");
                                             binding.ruyuanshijian2.setText("入院时间: "+timer);
@@ -153,7 +154,9 @@ public class PatientInfoActivity extends BaseActivity implements ViewPager.OnPag
                                             binding.logo.setText(logingBe.getResult().getPatientInfo().getBuildName());
                                             binding.zhuzhi.setText("主治医生: "+logingBe.getResult().getPatientInfo().getDoctorName());
                                             binding.idid.setText("ID: "+logingBe.getResult().getPatientInfo().getPatientCode());
+                                            if (logingBe.getResult().getPatientInfo().getIllness()!=null)
                                             binding.bingqing.setText(logingBe.getResult().getPatientInfo().getIllness());
+                                            if (logingBe.getResult().getPatientInfo().getPatientName()!=null)
                                             binding.huanzhe.setText(logingBe.getResult().getPatientInfo().getPatientName());
                                             if (logingBe.getResult().getPatientInfo().getGender()==1){
                                                 binding.sex.setText("男  "+logingBe.getResult().getPatientInfo().getAge()+"岁");

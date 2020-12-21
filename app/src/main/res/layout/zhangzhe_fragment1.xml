@@ -133,7 +133,7 @@
             android:id="@+id/zz"
             android:layout_marginLeft="12dp"
             android:textSize="13sp"
-            android:text="主治医师:"
+            android:text="入院时间:"
             android:maxLines="1"
             android:gravity="center_vertical"
             android:textColor="#FFB6B6B6"
@@ -142,27 +142,29 @@
 
         <TextView
             app:layout_constraintLeft_toRightOf="@+id/zz"
-            app:layout_constraintTop_toTopOf="@+id/logo"
-            app:layout_constraintBottom_toBottomOf="@+id/logo"
+            app:layout_constraintTop_toTopOf="@+id/zz"
+            app:layout_constraintBottom_toBottomOf="@+id/zz"
             android:id="@+id/zhuzhi"
             android:ellipsize="end"
             android:textSize="13sp"
-            android:text="马冬梅"
+            android:text=""
             android:maxLines="1"
             android:textColor="#FF4C4C4C"
-            android:layout_width="50dp"
+            android:layout_width="0dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginEnd="20dp"
             android:layout_height="wrap_content"/>
 
 <!--////////////////////////////////////////////////////////////////////////////////-->
 
         <com.qmuiteam.qmui.widget.QMUIFontFitTextView
-            app:layout_constraintLeft_toRightOf="@+id/zhuzhi"
+            app:layout_constraintLeft_toRightOf="@+id/huanzhe"
             app:layout_constraintTop_toTopOf="@+id/huanzhe"
             app:layout_constraintBottom_toBottomOf="@+id/huanzhe"
             app:qmui_minTextSize="8sp"
             app:qmui_maxTextSize="13sp"
             android:id="@+id/xb"
-            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp"
             android:textSize="13sp"
             android:text="性别:"
             android:maxLines="1"
@@ -186,7 +188,7 @@
             android:layout_height="wrap_content"/>
 
         <com.qmuiteam.qmui.widget.QMUIFontFitTextView
-            app:layout_constraintLeft_toRightOf="@+id/zhuzhi"
+            app:layout_constraintLeft_toRightOf="@+id/huanzhe"
             app:layout_constraintTop_toTopOf="@+id/idid"
             app:layout_constraintBottom_toBottomOf="@+id/idid"
             app:qmui_minTextSize="8sp"
@@ -194,7 +196,7 @@
             android:id="@+id/ry"
             android:layout_marginLeft="12dp"
             android:textSize="13sp"
-            android:text="入院时间:"
+            android:text="主治医生:"
             android:maxLines="1"
             android:gravity="center_vertical"
             android:textColor="#FFB6B6B6"
@@ -203,13 +205,13 @@
 
         <com.qmuiteam.qmui.widget.QMUIFontFitTextView
             app:layout_constraintLeft_toRightOf="@+id/ry"
-            app:layout_constraintTop_toTopOf="@+id/idid"
-            app:layout_constraintBottom_toBottomOf="@+id/idid"
+            app:layout_constraintTop_toTopOf="@+id/ry"
+            app:layout_constraintBottom_toBottomOf="@+id/ry"
             app:qmui_minTextSize="8sp"
             app:qmui_maxTextSize="13sp"
             android:id="@+id/ruyuanshijian"
             android:textSize="13sp"
-            android:text="2020-12-12"
+            android:text=""
             android:maxLines="1"
             android:textColor="#FF4C4C4C"
             android:layout_width="72dp"
@@ -223,7 +225,8 @@
             app:qmui_minTextSize="8sp"
             app:qmui_maxTextSize="13sp"
             android:id="@+id/bq"
-            android:layout_marginLeft="12dp"
+            android:visibility="gone"
+            android:layout_marginStart="12dp"
             android:textSize="13sp"
             android:text="病情描述:"
             android:maxLines="1"
@@ -240,6 +243,7 @@
             android:id="@+id/bingqing"
             android:textSize="13sp"
             android:text="术后康复"
+            android:visibility="gone"
             android:maxLines="1"
             android:ellipsize="end"
             android:textColor="#FF4C4C4C"

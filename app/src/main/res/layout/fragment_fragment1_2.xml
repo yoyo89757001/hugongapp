@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/refreshLayout"
-    tools:context=".ui.fragments1.huanzhe.Fragment1_2">
+    tools:context=".ui.fragmengmain.Fragment1_2">
 
     <com.scwang.smart.refresh.header.ClassicsHeader
         android:layout_width="match_parent"
