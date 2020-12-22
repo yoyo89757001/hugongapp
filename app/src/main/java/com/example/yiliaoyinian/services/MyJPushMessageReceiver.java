@@ -139,7 +139,7 @@ public class MyJPushMessageReceiver extends JPushMessageReceiver {
 
     //send msg to MainActivity
     private void processCustomMessage(Context context, CustomMessage customMessage) {
-         Log.d(TAG, "极光的消息:"+customMessage.message+" "+customMessage.contentType);
+        // Log.d(TAG, "极光的消息:"+customMessage.message+" "+customMessage.contentType);
        //  if (customMessage.contentType.equals("6"))
          try {
              JSONObject jsonObject= JSON.parseObject(customMessage.extra);
@@ -164,10 +164,10 @@ public class MyJPushMessageReceiver extends JPushMessageReceiver {
                      EventBus.getDefault().post(object);
                  }
                  if (type.toString().equals("11")) {//告警推送
+                    // setStyleBasic(true,context);
                      Dfgg object=JSON.parseObject(String.valueOf(ssss),Dfgg.class);
-                     setStyleBasic(true,context);
                      JPushMSGBean bean=new JPushMSGBean();
-                     bean.setMessage(object.getMsg()+"");
+                     bean.setMessage(object.getPlace()+object.getMsg()+"");
                      bean.setTime2(object.getTime());
                      jPushMSGBeanBox.put(bean);
                      EventBus.getDefault().post(object);
@@ -205,7 +205,6 @@ public class MyJPushMessageReceiver extends JPushMessageReceiver {
         } else {
             builder.notificationDefaults = Notification.DEFAULT_LIGHTS;	//设置为闪光
         }
-
         JPushInterface.setDefaultPushNotificationBuilder(builder);
     }
 }
