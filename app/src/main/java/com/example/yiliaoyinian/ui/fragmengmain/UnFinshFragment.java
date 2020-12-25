@@ -1,15 +1,13 @@
 package com.example.yiliaoyinian.ui.fragmengmain;
 
 
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 
 import android.view.View;
 import android.view.ViewGroup;
-
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,7 +18,6 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 
 import com.example.yiliaoyinian.Beans.Kdaasd;
 import com.example.yiliaoyinian.Beans.RKLBENbean;
-import com.example.yiliaoyinian.Beans.UnFinshBean;
 import com.example.yiliaoyinian.MyApplication;
 import com.example.yiliaoyinian.R;
 import com.example.yiliaoyinian.adapter.UnFinshAdapter;
@@ -33,22 +30,15 @@ import com.google.gson.JsonObject;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.NotNull;
-
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Request;
@@ -163,7 +153,7 @@ public class UnFinshFragment extends Fragment {
                                     concurrentHashMap.put(resultDTO.getPeriod(),resultDTO.getProjectName());
                                 }
                             }
-
+                            taskBeanList.clear();
                             for (Map.Entry<String, String> entry : concurrentHashMap.entrySet()) {
                                 taskBeanList.add(new Kdaasd(entry.getKey(),entry.getValue()));
                                // System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());

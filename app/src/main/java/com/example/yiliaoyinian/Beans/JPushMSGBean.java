@@ -10,7 +10,7 @@ public class JPushMSGBean {
     private Long id;
     private String message;
     private int count;
-    private String time;
+    private long time;
     private long time2;//根据这个时间，超过一星期删除
 
     public long getTime2() {
@@ -45,11 +45,11 @@ public class JPushMSGBean {
         this.count = count;
     }
 
-    public String getTime() {
+    public long getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(long time) {
         this.time = time;
     }
 }

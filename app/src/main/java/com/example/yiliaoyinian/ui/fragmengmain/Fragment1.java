@@ -337,7 +337,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         @Override
         protected void convert(@NotNull BaseViewHolder baseViewHolder, JPushMSGBean taskBean) {
             baseViewHolder.setText(R.id.title,taskBean.getMessage());
-            baseViewHolder.setText(R.id.time,DateUtils.timet(taskBean.getTime2()+""));
+            baseViewHolder.setText(R.id.time,DateUtils.timet(taskBean.getTime()+""));
             TextView textView=baseViewHolder.getView(R.id.title);
             textView.setSelected(true);
 

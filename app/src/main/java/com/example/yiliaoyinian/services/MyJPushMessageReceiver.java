@@ -168,7 +168,8 @@ public class MyJPushMessageReceiver extends JPushMessageReceiver {
                      Dfgg object=JSON.parseObject(String.valueOf(ssss),Dfgg.class);
                      JPushMSGBean bean=new JPushMSGBean();
                      bean.setMessage(object.getPlace()+object.getMsg()+"");
-                     bean.setTime2(object.getTime());
+                     bean.setTime2(System.currentTimeMillis());
+                     bean.setTime(object.getTime());
                      jPushMSGBeanBox.put(bean);
                      EventBus.getDefault().post(object);
                  }

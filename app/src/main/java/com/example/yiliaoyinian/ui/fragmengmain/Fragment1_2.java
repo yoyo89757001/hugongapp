@@ -15,11 +15,8 @@ import android.view.ViewGroup;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnLoadMoreListener;
-
 import com.example.yiliaoyinian.Beans.AAbb;
 import com.example.yiliaoyinian.Beans.AAbb2;
-import com.example.yiliaoyinian.Beans.HuanZheBean0;
-
 import com.example.yiliaoyinian.Beans.Lojkdd;
 import com.example.yiliaoyinian.MyApplication;
 import com.example.yiliaoyinian.R;
