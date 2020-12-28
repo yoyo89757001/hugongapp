@@ -282,7 +282,7 @@ public class Fragment2 extends Fragment implements QRCodeView.Delegate, View.OnC
                                                 if (qmuiTipDialog != null)
                                                     qmuiTipDialog.dismiss();
                                             }
-                                        }, 3000);
+                                        }, 2000);
 
                                     }
                                 });

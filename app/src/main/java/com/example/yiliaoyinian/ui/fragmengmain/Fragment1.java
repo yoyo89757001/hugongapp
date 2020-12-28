@@ -243,7 +243,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                             e.printStackTrace();
                         }
                     }
-                }, 1800);
+                }, 2000);
             }
         });
     }
@@ -517,7 +517,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                                                 if (qmuiTipDialog != null)
                                                     qmuiTipDialog.dismiss();
                                             }
-                                        }, 1800);
+                                        }, 2000);
 
                                     }
                                 });

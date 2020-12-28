@@ -70,7 +70,7 @@ public class ToastUtils {
                                 e.printStackTrace();
                             }
                         }
-                    }, 1600);
+                    }, 2000);
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -99,7 +99,7 @@ public class ToastUtils {
                                 e.printStackTrace();
                             }
                         }
-                    }, 1600);
+                    }, 2000);
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -128,7 +128,7 @@ public class ToastUtils {
                                 e.printStackTrace();
                             }
                         }
-                    }, 1600);
+                    }, 2000);
                 }catch (Exception e){
                     e.printStackTrace();
                 }

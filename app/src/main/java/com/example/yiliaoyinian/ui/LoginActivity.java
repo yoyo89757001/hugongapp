@@ -320,7 +320,7 @@ public class LoginActivity extends AppCompatActivity implements EasyPermissions.
                             public void run() {
                                 qmuiTipDialog2.dismiss();
                             }
-                        }, 2500);
+                        }, 2000);
                         if (qmuiTipDialog != null)
                             qmuiTipDialog.dismiss();
                         btnLogin.setEnabled(true);
@@ -393,7 +393,7 @@ public class LoginActivity extends AppCompatActivity implements EasyPermissions.
                                         public void run() {
                                             qmuiTipDialog2.dismiss();
                                         }
-                                    }, 2500);
+                                    }, 2000);
                                 }
                             });
                         }
@@ -411,7 +411,7 @@ public class LoginActivity extends AppCompatActivity implements EasyPermissions.
                                     public void run() {
                                         qmuiTipDialog2.dismiss();
                                     }
-                                }, 2500);
+                                }, 2000);
                             }
                         });
 

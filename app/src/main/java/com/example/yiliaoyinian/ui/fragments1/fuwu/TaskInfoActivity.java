@@ -145,7 +145,7 @@ public class TaskInfoActivity extends BaseActivity {
                             if (qmuiTipDialog != null)
                                 qmuiTipDialog.dismiss();
                         }
-                    }, 1800);
+                    }, 2000);
                 }
             } else {
                 patientCode = null;
@@ -161,7 +161,7 @@ public class TaskInfoActivity extends BaseActivity {
                         if (qmuiTipDialog != null)
                             qmuiTipDialog.dismiss();
                     }
-                }, 1800);
+                }, 2000);
             }
         } catch (Exception e) {
             qmuiTipDialog = new QMUITipDialog.Builder(this)
@@ -175,7 +175,7 @@ public class TaskInfoActivity extends BaseActivity {
                     if (qmuiTipDialog != null)
                         qmuiTipDialog.dismiss();
                 }
-            }, 1800);
+            }, 2000);
             Log.d("TaskInfoActivity", e.getMessage() + "json异常");
         }
 
@@ -424,7 +424,7 @@ public class TaskInfoActivity extends BaseActivity {
                                                 if (qmuiTipDialog != null)
                                                     qmuiTipDialog.dismiss();
                                             }
-                                        }, 1800);
+                                        }, 2000);
                                     }
                                 });
 
